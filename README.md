@@ -112,7 +112,77 @@ In this project, I downloaded and configured OPNsense firewall/routing software 
 <img src="https://i.imgur.com/jFg92fD.png" height="80%" width="80%" alt="OPNsense_Dashboard"/>
 </p>
 
-<li>Next, open filezilla in a terminal on Ubuntu. This will establish an SFTP connection to the OPNsense machine so we can access the file structure and upload our own custom rules.</li>
+<ul>
+ <li>Next, open filezilla in a terminal on Ubuntu. This will establish an SFTP connection to the OPNsense machine so we can access the file structure and upload our own custom rules.</li>
+ <ul>
+  <li>Host: sftp://192.168.1.1</li>
+  <li>Username: root</li>
+  <li>Password: opnsense</li>
+  <li>Port: 22</li>
+ </ul>
+ <li>Once the connection had been established, in the right-hand window indicating the OPNsense file structure, I navigated to this directory:</li>
+ <ul>
+  <li>/usr/local/opnsense/scripts/suricata/metadata/rules</li>
+  <li>This directory holds the rules OPNsense uses. I then pasted my customnmap.xml file into the ‘rules’ folder.</li>
+ </ul>
+</ul>
+
+<p align="center">
+<br/>
+<img src="https://i.imgur.com/W4Wt4uD.png" height="80%" width="80%" alt="OPNsense_Dashboard"/>
+</p>
+
+<ul>
+ <li>Next I set up an HTTP server on my Ubuntu VM to serve the customnmap.rules file to OPNsense. The .xml file I placed earlier in OPNsense will then query for those set of rules to be downloaded to the server. In a new terminal, I ran the following command:</li>
+ <ul>
+  <li><i>sudo python3 -m http.server 80</i></li>
+ </ul>
+</ul>
+
+<p align="center">
+<br/>
+<img src="https://i.imgur.com/qndDO9Q.png" height="80%" width="80%" alt="OPNsense_Dashboard"/>
+</p>
+
+<li>I then navigated to the OPNsense IDS administration dashboard and restarted the service. In the ‘Download’ tab, we can see that the custom rule I created has been populated.</li>
+
+<p align="center">
+<br/>
+<img src="https://i.imgur.com/IwQFnWO.png" height="80%" width="80%" alt="OPNsense_Dashboard"/>
+</p>
+
+<li>Once I confirmed the rule had populated, I then enabled the custom Nmap ruleset, and clicked on the “Download & Update Rules” button which allows OPNsense to grab the .rules file through the HTTP server I established.</li>
+<li>Navigate to ‘Rules’ tab and view the custom rule that has been populated and has been enabled:</li>
+
+<p align="center">
+<br/>
+<img src="https://i.imgur.com/XpzAl0P.png" height="80%" width="80%" alt="OPNsense_Dashboard"/>
+</p>
+
+<ul>
+ <li>Now we will test if this rule actually works! Navigate to a new terminal in your Ubuntu VM and run the following command:</li>
+ <ul>
+  <li><i>‘Sudo nmap -sS -Pn --top-ports 500 192.168.1.1’</i></li>
+  <li>This command uses the Nmap tool to perform a TCP SYN scan on the OPNsense firewall, and will scan the first 500 ports.</li>
+  <ul>
+   <li>'-sS': Specifies a TCP SYN scan, where Nmap sends a TCP SYN packet to the target and listens for a response.</li>
+   <li>'-Pn': Treats all hosts as online and does not perform host discovery. This is useful when you already know the target is responsive, and you want to skip the host discovery phase.</li>
+   <li>'--top-ports 500': Specifies that Nmap should scan the top 500 most commonly used ports. This is a convenience option to speed up the scan by focusing on the ports that are more likely to be interesting or commonly used.</li>
+  </ul>
+ </ul>
+</ul>
+
+<p align="center">
+<br/>
+<img src="https://i.imgur.com/tsu3PZm.png" height="80%" width="80%" alt="OPNsense_Dashboard"/>
+</p>
+
+<li>Navigate back to the OPNsense firewall and go to the ‘Alerts’ Tab. Results were displayed indicating the rule was successful and the IDS/IPS works!</li>
+
+<p align="center">
+<br/>
+<img src="https://i.imgur.com/72B3xJv.png" height="80%" width="80%" alt="OPNsense_Dashboard"/>
+</p>
 
 
 
