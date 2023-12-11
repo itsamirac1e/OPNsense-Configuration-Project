@@ -12,7 +12,21 @@ In this project, I downloaded and configured OPNsense firewall/routing software 
 
 
 <h2>Environments Used </h2>
-- <b>Oracle Virtualbox</b>
+<ul>
+ <li>Oracle VirtualBox</li>
+ <li>Ubuntu VM</li>
+ <li>OPNsense web GUI</li>
+</ul>
+
+<h2>Key Takeaways</h2>
+<ul>
+ <li>Learned how to configure networks, firewalls, servers and systems.</li>
+ <li>How to administrate Windows and Linux clients and servers.</li>
+ <li>Harden devices and networks.</li>
+ <li>Various penetration tools and techniques.</li>
+ <li>Monitor and defend against attacks.</li>
+</ul>
+
 
 <h2>Lab Topology (So far)</h2>
 
