@@ -32,15 +32,31 @@ In this project, I downloaded and configured OPNsense firewall/routing software 
 
 <p align="center">
 <br/>
-<img src="https://i.imgur.com/bhHIwaR.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://i.imgur.com/bhHIwaR.png" height="80%" width="80%" alt="Network Topology"/>
 </p>
 
-<!--
- ```diff
-- text in red
-+ text in green
-! text in orange
-# text in gray
-@@ text in purple (and bold)@@
-```
---!>
+<h2>OPNsense Firewall Installation</h2>
+<ul>
+ <li>Downloaded OPNsense iso image from https://opnsense.org/download/</li>
+ <li>Created VM in Virtualbox (already pre-installed) and configured device requirements to boot and run OPNsense. Requirements set:</li>
+  <ul>
+   <li>Base Memory: 4096 MB</li>
+   <li>OS: FreeBSD 64-bit</li>
+   <li>Video Memory: 16 MB</li>
+   <li>Network Adapters: For OPNsense to work correctly, two interfaces are needed. 
+    One for your WAN that is connected to your internet and another that is connected to your LAN.
+   </li>
+    <ul>
+     <li>Adapter 1: Internal Network (LAN) em0 - Creates a virtual internal local network.</li>
+     <li>Adapter 2: Bridged Adapter (WAN) em1</li>
+    </ul>
+   <li>Booted iso image and configured LAN and WAN networks accordingly:</li>
+  </ul>
+</ul>
+
+<p align="center">
+<br/>
+<img src="https://i.imgur.com/LygjPqw.png" height="80%" width="80%" alt="Network Topology"/>
+</p>
+
+<li>Logged into pre-installed Ubuntu VM in my hypervisor and logged into 192.168.1.1 (OPNsense web GUI):</li>
